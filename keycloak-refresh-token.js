@@ -1,3 +1,4 @@
+//refresh token script
 pm.sendRequest({
     url: pm.environment.get('host')+"/auth/realms/"+pm.environment.get('realm')+"/protocol/openid-connect/token",
     method: 'POST',
@@ -17,3 +18,8 @@ pm.sendRequest({
     postman.setEnvironmentVariable('access_token', res.json().access_token)
     postman.setEnvironmentVariable('refresh_token', res.json().refresh_token)
 });
+
+//save token to enviroment variable (first login)
+var jsonData = JSON.parse(responseBody)
+postman.setEnvironmentVariable('access_token', jsonData.access_token)
+postman.setEnvironmentVariable('refresh_token', jsonData.refresh_token)
